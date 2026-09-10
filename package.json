@@ -1,0 +1,9 @@
+{
+  "name": "digal-architect-website",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npx serve dist",
+    "build": "node -e \"console.log('Static site ready in dist')\""
+  }
+}
