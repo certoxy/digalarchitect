@@ -76,6 +76,7 @@ const projectModalImage = document.querySelector('.project-modal-image');
 const projectModalTitle = document.querySelector('#project-modal-title');
 const projectModalMeta = document.querySelector('#project-modal-meta');
 const projectModalDescription = document.querySelector('#project-modal-description');
+const projectPageLink = document.querySelector('#project-page-link');
 let lastProjectTrigger = null;
 
 const closeProjectModal = () => {
@@ -93,6 +94,7 @@ const openProjectModal = (card) => {
   projectModalTitle.textContent = card.dataset.projectName || '';
   projectModalMeta.textContent = card.dataset.projectMeta || '';
   projectModalDescription.textContent = card.dataset.projectDescription || '';
+  if (projectPageLink) projectPageLink.href = card.getAttribute('href') || '#';
   projectModal.classList.add('open');
   projectModal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('modal-open');
@@ -100,7 +102,10 @@ const openProjectModal = (card) => {
 };
 
 document.querySelectorAll('.portfolio-card').forEach((card) => {
-  card.addEventListener('click', () => openProjectModal(card));
+  card.addEventListener('click', (event) => {
+    event.preventDefault();
+    openProjectModal(card);
+  });
   card.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
