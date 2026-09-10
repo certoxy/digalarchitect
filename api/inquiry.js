@@ -32,7 +32,7 @@ module.exports = async function handler(request, response) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      from: process.env.INQUIRY_FROM || 'Digal Website <inquiries@paotechs.com>',
+      from: process.env.INQUIRY_FROM || 'Digal Website <inquiries@send.paotechs.com>',
       to: [process.env.INQUIRY_TO || 'digaloffice2017@gmail.com'],
       reply_to: email,
       subject: `New Digal website inquiry — ${projectType}`,
