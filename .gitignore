@@ -1,0 +1,4 @@
+generated_images/
+*.zip
+dist/assets/*.png
+.DS_Store
