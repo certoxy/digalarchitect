@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://digalarchitect.dev/sitemap.xml
