@@ -70,3 +70,49 @@ inquiryForm?.addEventListener('submit', async (event) => {
     submitButton.innerHTML = 'Send inquiry <span aria-hidden="true">→</span>';
   }
 });
+
+const projectModal = document.querySelector('#project-modal');
+const projectModalImage = document.querySelector('.project-modal-image');
+const projectModalTitle = document.querySelector('#project-modal-title');
+const projectModalMeta = document.querySelector('#project-modal-meta');
+const projectModalDescription = document.querySelector('#project-modal-description');
+let lastProjectTrigger = null;
+
+const closeProjectModal = () => {
+  projectModal?.classList.remove('open');
+  projectModal?.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  lastProjectTrigger?.focus();
+};
+
+const openProjectModal = (card) => {
+  lastProjectTrigger = card;
+  const sourceImage = card.querySelector('img');
+  projectModalImage.src = sourceImage?.currentSrc || sourceImage?.src || '';
+  projectModalImage.alt = sourceImage?.alt || '';
+  projectModalTitle.textContent = card.dataset.projectName || '';
+  projectModalMeta.textContent = card.dataset.projectMeta || '';
+  projectModalDescription.textContent = card.dataset.projectDescription || '';
+  projectModal.classList.add('open');
+  projectModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  projectModal.querySelector('.project-modal-close')?.focus();
+};
+
+document.querySelectorAll('.portfolio-card').forEach((card) => {
+  card.addEventListener('click', () => openProjectModal(card));
+  card.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openProjectModal(card);
+    }
+  });
+});
+
+projectModal?.querySelectorAll('[data-project-close]').forEach((control) => {
+  control.addEventListener('click', closeProjectModal);
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && projectModal?.classList.contains('open')) closeProjectModal();
+});
